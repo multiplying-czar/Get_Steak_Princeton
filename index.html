@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4c7ebb067a2f1f2055e42480c613d8c9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+</head>
+<body>
+    
+    
+<div style="
+ position: fixed;
+ top: 10px; left: 50px; right: 90px;
+ z-index: 9999;
+ background: rgba(255,255,255,0.96);
+ border: 1px solid #777;
+ border-radius: 6px;
+ padding: 10px 14px;
+ font-family: Arial, sans-serif;
+ box-shadow: 0 1px 5px rgba(0,0,0,.25);
+">
+  <div style="font-size:18px; font-weight:700;">Steak options from Firestone Library — no car required</div>
+  <div style="font-size:13px; margin-top:3px;">
+    Scope: restaurants serving a full beef-steak cut and markets selling raw steak; cheesesteak-only and burger-only locations are excluded.
+    Summer 2026: Route WS shopping service runs Sunday only. Route 3 to Forrestal runs weekdays and is infrequent.
+    Dashed blue line is schematic, not a street-level bus route.
+  </div>
+</div>
+    
+<div style="
+ position: fixed; bottom: 25px; left: 25px; z-index: 9999;
+ background: rgba(255,255,255,0.95); border: 1px solid #777;
+ border-radius: 5px; padding: 9px 11px; font-family: Arial,sans-serif;
+ font-size: 12px; line-height: 1.6;">
+ <b>Pin legend</b><br>
+ <span style="color:#8b0000;">●</span> Cooked steak — walk<br>
+ <span style="color:#17823b;">●</span> Raw steak — walk<br>
+ <span style="color:#6a3d9a;">●</span> Cooked steak — TigerTransit<br>
+ <span style="color:#2457a6;">●</span> Raw steak — TigerTransit<br>
+ <span style="color:#c62828;">●</span> Firestone Library
+</div>
+    
+            <div class="folium-map" id="map_4c7ebb067a2f1f2055e42480c613d8c9" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4c7ebb067a2f1f2055e42480c613d8c9 = L.map(
+                "map_4c7ebb067a2f1f2055e42480c613d8c9",
+                {
+                    center: [40.342, -74.656],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+
+            
+
+        
+    
+            var tile_layer_eafc7ac6c8d45cad781156aac0b4e26d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_eafc7ac6c8d45cad781156aac0b4e26d.addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topright",
+  "title": "Full screen",
+  "titleCancel": "Exit full screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var locate_control_1b1ba9b4847d1175366977de079ffc8d = L.control.locate(
+                {"flyTo": true, "position": "topright", "strings": {"title": "Show my location"}}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+            
+        
+    
+            var feature_group_9a68debee1e65c7f56c2aa60e37bfdb3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_3799165e39a39414e9080c86dc553471 = L.marker(
+                [40.35048, -74.65975],
+                {
+}
+            ).addTo(feature_group_9a68debee1e65c7f56c2aa60e37bfdb3);
+        
+    
+            var icon_5802084daa2ddb39359b762f7bee0cf0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "cutlery",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d01817e15164c34f6366c55013162ef8 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_20cf9f08ce7fc5ad1303686e7b4dd6b2 = $(`<div id="html_20cf9f08ce7fc5ad1303686e7b4dd6b2" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Agricola Eatery</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 11 Witherspoon St, Princeton, NJ 08542</div>       <div style="margin-top:7px;">About a 4–6 minute walk. Current dinner menu lists a 12 oz strip steak; lunch/brunch also has steak and eggs.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Closest cooked-steak option</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=11+Witherspoon+St%2C+Princeton%2C+NJ+08542&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_d01817e15164c34f6366c55013162ef8.setContent(html_20cf9f08ce7fc5ad1303686e7b4dd6b2);
+            
+        
+
+        marker_3799165e39a39414e9080c86dc553471.bindPopup(popup_d01817e15164c34f6366c55013162ef8)
+        ;
+
+        
+    
+    
+            marker_3799165e39a39414e9080c86dc553471.bindTooltip(
+                `<div>
+                     Agricola Eatery — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3799165e39a39414e9080c86dc553471.setIcon(icon_5802084daa2ddb39359b762f7bee0cf0);
+            
+    
+            var marker_50189300759e6a89fd542fd92677989e = L.marker(
+                [40.35065, -74.66133],
+                {
+}
+            ).addTo(feature_group_9a68debee1e65c7f56c2aa60e37bfdb3);
+        
+    
+            var icon_6fcbd5ea00faf190fb92aeda71a680c2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "cutlery",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_360a17e0b3c2027cb385822038162d83 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_a2f8979090c5847a3ee9a848bf474853 = $(`<div id="html_a2f8979090c5847a3ee9a848bf474853" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Yankee Doodle Tap Room</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 10 Palmer Square E, Princeton, NJ 08542</div>       <div style="margin-top:7px;">About a 6–8 minute walk. Current menu lists a 14 oz Wagyu strip steak.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Casual downtown option</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=10+Palmer+Square+E%2C+Princeton%2C+NJ+08542&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_360a17e0b3c2027cb385822038162d83.setContent(html_a2f8979090c5847a3ee9a848bf474853);
+            
+        
+
+        marker_50189300759e6a89fd542fd92677989e.bindPopup(popup_360a17e0b3c2027cb385822038162d83)
+        ;
+
+        
+    
+    
+            marker_50189300759e6a89fd542fd92677989e.bindTooltip(
+                `<div>
+                     Yankee Doodle Tap Room — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_50189300759e6a89fd542fd92677989e.setIcon(icon_6fcbd5ea00faf190fb92aeda71a680c2);
+            
+    
+            var marker_1774ef7d1308f9e6e483c4e76c0b2641 = L.marker(
+                [40.35226, -74.66068],
+                {
+}
+            ).addTo(feature_group_9a68debee1e65c7f56c2aa60e37bfdb3);
+        
+    
+            var icon_1f1ef0341bb2ad0842b3c3c0ada217fc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "cutlery",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0ac8899a4ddee1a281f8d417b786e947 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_6620499ccbaa45ea0725e77873ba5d33 = $(`<div id="html_6620499ccbaa45ea0725e77873ba5d33" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Witherspoon Grill</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 57 Witherspoon St, Princeton, NJ 08542</div>       <div style="margin-top:7px;">About an 8–10 minute walk. A steak-focused American grill with hand-cut steaks.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Best nearby traditional grill</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=57+Witherspoon+St%2C+Princeton%2C+NJ+08542&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_0ac8899a4ddee1a281f8d417b786e947.setContent(html_6620499ccbaa45ea0725e77873ba5d33);
+            
+        
+
+        marker_1774ef7d1308f9e6e483c4e76c0b2641.bindPopup(popup_0ac8899a4ddee1a281f8d417b786e947)
+        ;
+
+        
+    
+    
+            marker_1774ef7d1308f9e6e483c4e76c0b2641.bindTooltip(
+                `<div>
+                     Witherspoon Grill — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1774ef7d1308f9e6e483c4e76c0b2641.setIcon(icon_1f1ef0341bb2ad0842b3c3c0ada217fc);
+            
+    
+            var marker_6e86885129469dfb323f88a22057189e = L.marker(
+                [40.34395, -74.66017],
+                {
+}
+            ).addTo(feature_group_9a68debee1e65c7f56c2aa60e37bfdb3);
+        
+    
+            var icon_2fb1fba9053444f6083dc4be8090b63f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "cutlery",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ac74adac4156d0a01b47edebbc1abbcd = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_0145b1c3b840f75c98b7fdaffd8f13ec = $(`<div id="html_0145b1c3b840f75c98b7fdaffd8f13ec" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Roots Steakhouse</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 98 University Pl, Princeton, NJ 08540</div>       <div style="margin-top:7px;">About a 12–15 minute walk. Full steakhouse menu: strip, filet, ribeye, porterhouse, dry-aged and American Wagyu cuts.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Largest downtown steak selection</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=98+University+Pl%2C+Princeton%2C+NJ+08540&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_ac74adac4156d0a01b47edebbc1abbcd.setContent(html_0145b1c3b840f75c98b7fdaffd8f13ec);
+            
+        
+
+        marker_6e86885129469dfb323f88a22057189e.bindPopup(popup_ac74adac4156d0a01b47edebbc1abbcd)
+        ;
+
+        
+    
+    
+            marker_6e86885129469dfb323f88a22057189e.bindTooltip(
+                `<div>
+                     Roots Steakhouse — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6e86885129469dfb323f88a22057189e.setIcon(icon_2fb1fba9053444f6083dc4be8090b63f);
+            
+    
+            var marker_79d1ed828065f01f60bd50c2d648db79 = L.marker(
+                [40.36044, -74.66492],
+                {
+}
+            ).addTo(feature_group_9a68debee1e65c7f56c2aa60e37bfdb3);
+        
+    
+            var icon_492a91bd20d7287511b6f4fa89cc450c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "cutlery",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_316d68b60e0827193fc8942033462238 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_3dbc19318d073efd30400870ad2905bf = $(`<div id="html_3dbc19318d073efd30400870ad2905bf" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">The Meeting House</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 277 Witherspoon St, Princeton, NJ 08540</div>       <div style="margin-top:7px;">About a 20–25 minute walk. Steak and eggs is listed on the brunch menu; this is not a full-time steakhouse.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Brunch-only steak option</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=277+Witherspoon+St%2C+Princeton%2C+NJ+08540&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_316d68b60e0827193fc8942033462238.setContent(html_3dbc19318d073efd30400870ad2905bf);
+            
+        
+
+        marker_79d1ed828065f01f60bd50c2d648db79.bindPopup(popup_316d68b60e0827193fc8942033462238)
+        ;
+
+        
+    
+    
+            marker_79d1ed828065f01f60bd50c2d648db79.bindTooltip(
+                `<div>
+                     The Meeting House — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_79d1ed828065f01f60bd50c2d648db79.setIcon(icon_492a91bd20d7287511b6f4fa89cc450c);
+            
+    
+            feature_group_9a68debee1e65c7f56c2aa60e37bfdb3.addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var feature_group_28fed5aeeaeb0aa2d11f21087cfa0364 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_781d716c907ad4af0bd80c244a5b4ac9 = L.marker(
+                [40.35394, -74.64451],
+                {
+}
+            ).addTo(feature_group_28fed5aeeaeb0aa2d11f21087cfa0364);
+        
+    
+            var icon_dfa4a1c8cf867c86b5bac1604d550f48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "shopping-basket",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b8fee5da307880821ee40f11bb26b032 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_40d997aa2c6ba6e4ffe94d99e850e736 = $(`<div id="html_40d997aa2c6ba6e4ffe94d99e850e736" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Whole Earth Center</div>       <div><b>Type:</b> Raw steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 360 Nassau St, Princeton, NJ 08540</div>       <div style="margin-top:7px;">About a 20–25 minute walk. Carries local grass-fed, pasture-raised beef; exact steak cuts vary.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Closest walkable raw-steak market</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=360+Nassau+St%2C+Princeton%2C+NJ+08540&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_b8fee5da307880821ee40f11bb26b032.setContent(html_40d997aa2c6ba6e4ffe94d99e850e736);
+            
+        
+
+        marker_781d716c907ad4af0bd80c244a5b4ac9.bindPopup(popup_b8fee5da307880821ee40f11bb26b032)
+        ;
+
+        
+    
+    
+            marker_781d716c907ad4af0bd80c244a5b4ac9.bindTooltip(
+                `<div>
+                     Whole Earth Center — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_781d716c907ad4af0bd80c244a5b4ac9.setIcon(icon_dfa4a1c8cf867c86b5bac1604d550f48);
+            
+    
+            var marker_0daa5dd54763622d0e26c869831c3661 = L.marker(
+                [40.36596, -74.64989],
+                {
+}
+            ).addTo(feature_group_28fed5aeeaeb0aa2d11f21087cfa0364);
+        
+    
+            var icon_623c7a8a499a72cc4f45d37f3ee949dd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "shopping-basket",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f5efbd1a53e0970589c48f8741cfad4b = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_c705eab724601419e9d9e6e6bbb9c270 = $(`<div id="html_c705eab724601419e9d9e6e6bbb9c270" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">McCaffrey's Food Market</div>       <div><b>Type:</b> Raw steak</div>       <div><b>Access:</b> Walk</div>       <div><b>Address:</b> 301 N Harrison St, Princeton, NJ 08540</div>       <div style="margin-top:7px;">About a 30–35 minute walk. Full meat counter with filet, strip, ribeye, flank, skirt and custom cuts. The free Princeton Loop Express also serves the shopping center, but it is not TigerTransit.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Best butcher-counter selection without a car</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=301+N+Harrison+St%2C+Princeton%2C+NJ+08540&travelmode=walking" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_f5efbd1a53e0970589c48f8741cfad4b.setContent(html_c705eab724601419e9d9e6e6bbb9c270);
+            
+        
+
+        marker_0daa5dd54763622d0e26c869831c3661.bindPopup(popup_f5efbd1a53e0970589c48f8741cfad4b)
+        ;
+
+        
+    
+    
+            marker_0daa5dd54763622d0e26c869831c3661.bindTooltip(
+                `<div>
+                     McCaffrey's Food Market — Walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0daa5dd54763622d0e26c869831c3661.setIcon(icon_623c7a8a499a72cc4f45d37f3ee949dd);
+            
+    
+            feature_group_28fed5aeeaeb0aa2d11f21087cfa0364.addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var feature_group_ed830ad0151ca9b6d43dd51560109d8d = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_235d5d5c0f5c3b07fbbdfe7cf8310fcb = L.marker(
+                [40.35698, -74.61254],
+                {
+}
+            ).addTo(feature_group_ed830ad0151ca9b6d43dd51560109d8d);
+        
+    
+            var icon_a12ca3ae5b1074f12151c0b8bfce97cf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "bus",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_271fc5b81ccc080c9bacd3deb56006c5 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_c7b4a2e3f633259b48919fc3a398765e = $(`<div id="html_c7b4a2e3f633259b48919fc3a398765e" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Ruth's Chris Steak House</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> TigerTransit Route 3</div>       <div><b>Address:</b> 2 Village Blvd, Princeton, NJ 08540</div>       <div style="margin-top:7px;">Take Route 3 from Firestone toward Forrestal/PPPL, then walk a few minutes within Forrestal Village. Summer Route 3 is weekday-only and infrequent; dinner access is practical only for an early meal, and you must verify the final return bus in TripShot.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Direct weekday TigerTransit steakhouse</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=2+Village+Blvd%2C+Princeton%2C+NJ+08540&travelmode=transit" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_271fc5b81ccc080c9bacd3deb56006c5.setContent(html_c7b4a2e3f633259b48919fc3a398765e);
+            
+        
+
+        marker_235d5d5c0f5c3b07fbbdfe7cf8310fcb.bindPopup(popup_271fc5b81ccc080c9bacd3deb56006c5)
+        ;
+
+        
+    
+    
+            marker_235d5d5c0f5c3b07fbbdfe7cf8310fcb.bindTooltip(
+                `<div>
+                     Ruth's Chris Steak House — TigerTransit Route 3
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_235d5d5c0f5c3b07fbbdfe7cf8310fcb.setIcon(icon_a12ca3ae5b1074f12151c0b8bfce97cf);
+            
+    
+            var marker_aa8a10a839423fc8c69acf5453240af5 = L.marker(
+                [40.30775, -74.67495],
+                {
+}
+            ).addTo(feature_group_ed830ad0151ca9b6d43dd51560109d8d);
+        
+    
+            var icon_a01f3a89798f93b6fb5aa0f1e0e4a549 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "bus",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_18d24f34441133a829ce3239110254dc = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_e44686a346c9c12ee2addb832b81870a = $(`<div id="html_e44686a346c9c12ee2addb832b81870a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Eddie V's Prime Seafood</div>       <div><b>Type:</b> Cooked steak</div>       <div><b>Access:</b> TigerTransit Route WS + walk</div>       <div><b>Address:</b> 3535 US-1, Suite 100-C, Princeton, NJ 08540</div>       <div style="margin-top:7px;">Sunday only: take Route WS to Whole Foods, then walk roughly 5–10 minutes to MarketFair. Menu includes filet, prime bone-in strip, ribeye and Wagyu strip. Confirm the pedestrian route before leaving the stop.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Sunday TigerTransit fine-dining option</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=3535+US-1%2C+Suite+100-C%2C+Princeton%2C+NJ+08540&travelmode=transit" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_18d24f34441133a829ce3239110254dc.setContent(html_e44686a346c9c12ee2addb832b81870a);
+            
+        
+
+        marker_aa8a10a839423fc8c69acf5453240af5.bindPopup(popup_18d24f34441133a829ce3239110254dc)
+        ;
+
+        
+    
+    
+            marker_aa8a10a839423fc8c69acf5453240af5.bindTooltip(
+                `<div>
+                     Eddie V's Prime Seafood — TigerTransit Route WS + walk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aa8a10a839423fc8c69acf5453240af5.setIcon(icon_a01f3a89798f93b6fb5aa0f1e0e4a549);
+            
+    
+            feature_group_ed830ad0151ca9b6d43dd51560109d8d.addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var feature_group_a24327efd78c8324f743020acc09161e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_f7d79d06836c3e4307826d3ce67dc2c8 = L.marker(
+                [40.30737, -74.6664],
+                {
+}
+            ).addTo(feature_group_a24327efd78c8324f743020acc09161e);
+        
+    
+            var icon_58c6ae3cff69ba1f88059681cbf1542b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b750e9aa5cd4ffd0a638f06920c95b59 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_232e1b606089d805e9c2614ca6e776b2 = $(`<div id="html_232e1b606089d805e9c2614ca6e776b2" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Whole Foods Market</div>       <div><b>Type:</b> Raw steak</div>       <div><b>Access:</b> TigerTransit Route WS</div>       <div><b>Address:</b> 3495 US-1 S, Princeton, NJ 08540</div>       <div style="margin-top:7px;">Walk to Princeton Station, then take the Sunday Weekend Shopper (Route WS). Full butcher counter, including dry-aged steaks and custom cuts.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Best Sunday TigerTransit butcher counter</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=3495+US-1+S%2C+Princeton%2C+NJ+08540&travelmode=transit" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_b750e9aa5cd4ffd0a638f06920c95b59.setContent(html_232e1b606089d805e9c2614ca6e776b2);
+            
+        
+
+        marker_f7d79d06836c3e4307826d3ce67dc2c8.bindPopup(popup_b750e9aa5cd4ffd0a638f06920c95b59)
+        ;
+
+        
+    
+    
+            marker_f7d79d06836c3e4307826d3ce67dc2c8.bindTooltip(
+                `<div>
+                     Whole Foods Market — TigerTransit Route WS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f7d79d06836c3e4307826d3ce67dc2c8.setIcon(icon_58c6ae3cff69ba1f88059681cbf1542b);
+            
+    
+            var marker_10eb0dc0fa19c02d27a3fe9c3efa4800 = L.marker(
+                [40.30379, -74.67832],
+                {
+}
+            ).addTo(feature_group_a24327efd78c8324f743020acc09161e);
+        
+    
+            var icon_5497c99d019872f47bfb41d1fbd5e925 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_50f50361d50633aeeb19e94f6f27f2b1 = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_54e122dc25f858b7a7131a0f61c72098 = $(`<div id="html_54e122dc25f858b7a7131a0f61c72098" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Wegmans</div>       <div><b>Type:</b> Raw steak</div>       <div><b>Access:</b> TigerTransit Route WS</div>       <div><b>Address:</b> 240 Nassau Park Blvd, Princeton, NJ 08540</div>       <div style="margin-top:7px;">Walk to Princeton Station, then take the Sunday Weekend Shopper (Route WS). Large meat department with strip, ribeye, tenderloin, Wagyu and other cuts.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Largest Sunday grocery selection</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=240+Nassau+Park+Blvd%2C+Princeton%2C+NJ+08540&travelmode=transit" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_50f50361d50633aeeb19e94f6f27f2b1.setContent(html_54e122dc25f858b7a7131a0f61c72098);
+            
+        
+
+        marker_10eb0dc0fa19c02d27a3fe9c3efa4800.bindPopup(popup_50f50361d50633aeeb19e94f6f27f2b1)
+        ;
+
+        
+    
+    
+            marker_10eb0dc0fa19c02d27a3fe9c3efa4800.bindTooltip(
+                `<div>
+                     Wegmans — TigerTransit Route WS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_10eb0dc0fa19c02d27a3fe9c3efa4800.setIcon(icon_5497c99d019872f47bfb41d1fbd5e925);
+            
+    
+            var marker_c8f5f84f4d0e7ad1f735650a87e71314 = L.marker(
+                [40.30706, -74.68208],
+                {
+}
+            ).addTo(feature_group_a24327efd78c8324f743020acc09161e);
+        
+    
+            var icon_d645ee6b468d4e662552e870a9c7d991 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_201b51921efb6a37523d628b74d8141e = L.popup({
+  "maxWidth": 360,
+});
+
+        
+            
+                var html_4c3d0c60e556b2191ebe582ec71cd8d6 = $(`<div id="html_4c3d0c60e556b2191ebe582ec71cd8d6" style="width: 100.0%; height: 100.0%;">     <div style="font-family:Arial,sans-serif; line-height:1.35; width:310px;">       <div style="font-size:16px; font-weight:700; margin-bottom:4px;">Trader Joe's</div>       <div><b>Type:</b> Raw steak</div>       <div><b>Access:</b> TigerTransit Route WS</div>       <div><b>Address:</b> 3528 US-1, Princeton, NJ 08540</div>       <div style="margin-top:7px;">Walk to Princeton Station, then take the Sunday Weekend Shopper (Route WS). Packaged filet, ribeye, strip and flank cuts are commonly stocked; inventory varies.</div>       <div style="margin-top:7px;"><b>Why consider it:</b> Usually the lower-cost Sunday option</div>       <div style="margin-top:9px;">         <a href="https://www.google.com/maps/dir/?api=1&origin=1+Washington+Rd%2C+Princeton%2C+NJ+08544&destination=3528+US-1%2C+Princeton%2C+NJ+08540&travelmode=transit" target="_blank" rel="noopener">Open directions</a>       </div>     </div>     </div>`)[0];
+                popup_201b51921efb6a37523d628b74d8141e.setContent(html_4c3d0c60e556b2191ebe582ec71cd8d6);
+            
+        
+
+        marker_c8f5f84f4d0e7ad1f735650a87e71314.bindPopup(popup_201b51921efb6a37523d628b74d8141e)
+        ;
+
+        
+    
+    
+            marker_c8f5f84f4d0e7ad1f735650a87e71314.bindTooltip(
+                `<div>
+                     Trader Joe's — TigerTransit Route WS
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c8f5f84f4d0e7ad1f735650a87e71314.setIcon(icon_d645ee6b468d4e662552e870a9c7d991);
+            
+    
+            feature_group_a24327efd78c8324f743020acc09161e.addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var marker_51d3ecbf806bcadd9760b7dbce4fdfb4 = L.marker(
+                [40.3496, -74.65763],
+                {
+}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            var icon_7381d8ecc66275d5a79bd6843c84025a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_21a9b21a167522bd2b08436c8e9500ec = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_92c1752a1e9c8c6cd10a863a6d5c8767 = $(`<div id="html_92c1752a1e9c8c6cd10a863a6d5c8767" style="width: 100.0%; height: 100.0%;"><b>Firestone Library</b><br>1 Washington Rd, Princeton, NJ 08544<br><b>Your starting point</b></div>`)[0];
+                popup_21a9b21a167522bd2b08436c8e9500ec.setContent(html_92c1752a1e9c8c6cd10a863a6d5c8767);
+            
+        
+
+        marker_51d3ecbf806bcadd9760b7dbce4fdfb4.bindPopup(popup_21a9b21a167522bd2b08436c8e9500ec)
+        ;
+
+        
+    
+    
+            marker_51d3ecbf806bcadd9760b7dbce4fdfb4.bindTooltip(
+                `<div>
+                     Start: Firestone Library
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_51d3ecbf806bcadd9760b7dbce4fdfb4.setIcon(icon_7381d8ecc66275d5a79bd6843c84025a);
+            
+    
+            var circle_85379c24e391c02bb2f8016ace99fa30 = L.circle(
+                [40.3496, -74.65763],
+                {"bubblingMouseEvents": true, "color": "#555", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "#555", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1609, "stroke": true, "weight": 1}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            circle_85379c24e391c02bb2f8016ace99fa30.bindTooltip(
+                `<div>
+                     Approximate 1-mile radius from Firestone
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_bffc3a66291ed36638f4b7320a70cc24 = L.polyline(
+                [[40.3437, -74.6592], [40.30737, -74.6664], [40.30379, -74.67832], [40.30706, -74.68208]],
+                {"bubblingMouseEvents": true, "color": "#4b63a8", "dashArray": "8,8", "dashOffset": null, "fill": false, "fillColor": "#4b63a8", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+        
+    
+            poly_line_bffc3a66291ed36638f4b7320a70cc24.bindTooltip(
+                `<div>
+                     Schematic only: Sunday Route WS shopping sequence
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var layer_control_b33a9a2ba0a7a5efc0287c181f246a9e_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_eafc7ac6c8d45cad781156aac0b4e26d,
+                },
+                overlays :  {
+                    "Cooked steak \u2014 walk" : feature_group_9a68debee1e65c7f56c2aa60e37bfdb3,
+                    "Raw steak \u2014 walk" : feature_group_28fed5aeeaeb0aa2d11f21087cfa0364,
+                    "Cooked steak \u2014 TigerTransit" : feature_group_ed830ad0151ca9b6d43dd51560109d8d,
+                    "Raw steak \u2014 TigerTransit" : feature_group_a24327efd78c8324f743020acc09161e,
+                },
+            };
+            let layer_control_b33a9a2ba0a7a5efc0287c181f246a9e = L.control.layers(
+                layer_control_b33a9a2ba0a7a5efc0287c181f246a9e_layers.base_layers,
+                layer_control_b33a9a2ba0a7a5efc0287c181f246a9e_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_4c7ebb067a2f1f2055e42480c613d8c9);
+
+        
+</script>
+</html>
